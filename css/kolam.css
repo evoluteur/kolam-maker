@@ -1,0 +1,28 @@
+/* Kolam Maker */
+
+.content {
+  max-width: 1120px;
+}
+.canvas-box {
+  border-radius: 10px;
+}
+/* click targets between the dots: invisible until hovered */
+#kolam .hit {
+  fill: transparent;
+  stroke: none;
+  cursor: pointer;
+}
+#kolam .hit:hover {
+  fill: rgba(255, 255, 255, 0.18);
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 1.5;
+}
+html[data-theme="light"] #kolam .hit:hover {
+  stroke: rgba(255, 255, 255, 0.7);
+}
+.panel.under {
+  margin-top: 6px;
+}
+#hand {
+  pointer-events: none;
+}

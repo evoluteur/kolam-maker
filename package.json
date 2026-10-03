@@ -1,0 +1,30 @@
+{
+  "name": "kolam-maker",
+  "version": "1.0.0",
+  "description": "Kolam Maker: generate South Indian sikku kolams, dot-grid designs where a single unbroken line loops around every dot. Watch it being drawn, edit it, and download it as SVG or PNG.",
+  "repository": "github:evoluteur/kolam-maker",
+  "homepage": "https://evoluteur.github.io/kolam-maker/",
+  "copyright": "(c) 2026 Olivier Giulieri",
+  "author": "Olivier Giulieri (https://evoluteur.github.io/)",
+  "license": "MIT",
+  "keywords": [
+    "kolam",
+    "sikku-kolam",
+    "pulli-kolam",
+    "kolam-generator",
+    "rangoli",
+    "dot-grid",
+    "mirror-curves",
+    "one-line-drawing",
+    "south-india",
+    "sacred-geometry",
+    "esoterica",
+    "svg",
+    "generator",
+    "pwa",
+    "javascript"
+  ],
+  "scripts": {
+    "sync:themes": "sh scripts/sync-omg-themes.sh"
+  }
+}

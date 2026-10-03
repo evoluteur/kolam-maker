@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-063933E3C2"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-063933E3C2");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kolam Maker: One Line Around Every Dot</title>
+    <meta
+      name="description"
+      content="Kolam Maker: generate South Indian sikku kolams, dot-grid designs where a single unbroken line loops around every dot. Watch it being drawn, edit it, and download it as SVG or PNG."
+    />
+    <meta
+      name="keywords"
+      content="kolam, sikku kolam, pulli kolam, kolam generator, rangoli, muggu, dot grid, mirror curves, one line drawing, south indian art, tamil nadu, sacred geometry"
+    />
+    <meta name="author" content="Olivier Giulieri" />
+    <link rel="canonical" href="https://evoluteur.github.io/kolam-maker/" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <meta name="theme-color" content="#1a212d" />
+    <meta property="og:site_name" content="Evoluteur" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Kolam Maker" />
+    <meta
+      property="og:description"
+      content="South Indian dot-grid designs where a single unbroken line loops around every dot."
+    />
+    <meta property="og:url" content="https://evoluteur.github.io/kolam-maker/" />
+    <meta
+      property="og:image"
+      content="https://evoluteur.github.io/kolam-maker/kolam-maker.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Overpass"
+    />
+    <link id="omg-core-css" rel="stylesheet" href="css/core.css" />
+    <script>
+      // Themes (dark, light, evol-blue) are copies of omg-themes (npm run sync:themes);
+      // set OMG_THEMES_BASE to "https://evoluteur.github.io/omg-themes/" to link the hosted ones instead.
+      window.OMG_THEMES_BASE = "";
+      window.OMG_DEFAULT_THEME = "dark";
+      (function () {
+        var t = window.OMG_DEFAULT_THEME;
+        try {
+          t = localStorage.getItem("omg-theme") || t;
+        } catch (e) {}
+        if (t !== "dark" && t !== "light" && t !== "evol-blue")
+          t = window.OMG_DEFAULT_THEME;
+        document.documentElement.setAttribute("data-theme", t);
+        // written here (not in the markup) so the saved theme loads before first paint
+        document.write(
+          '<link id="omg-theme-css" rel="stylesheet" href="' +
+            window.OMG_THEMES_BASE +
+            "css/themes/" +
+            t +
+            "/" +
+            t +
+            '.css" />',
+        );
+      })();
+    </script>
+    <link id="omg-density-css" rel="stylesheet" href="css/densities.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/kolam.css" />
+
+    <script src="js/omg.js"></script>
+    <script src="js/kolam.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        addEventListener("load", () =>
+          navigator.serviceWorker.register("sw.js"),
+        );
+      }
+    </script>
+  </head>
+
+  <body
+    onload="
+      setupPage('home');
+      initKolam();
+    "
+    id="omg-body"
+  >
+    <div id="omg-header">
+      <h1>Kolam Maker</h1>
+      <div id="omg-header-tools">
+        <div id="omg-theme-picker"></div>
+        <a
+          id="omg-github"
+          href="https://github.com/evoluteur/kolam-maker"
+          target="_blank"
+          rel="noopener"
+          title="Kolam Maker on GitHub"
+          aria-label="Kolam Maker on GitHub"
+          ><svg viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+            /></svg
+        ></a>
+      </div>
+    </div>
+    <noscript
+      ><p class="tagline">
+        Kolam Maker draws with JavaScript. Enable it to make a kolam.
+      </p></noscript
+    >
+    <h2>One line around every dot</h2>
+    <div class="content">
+      <p class="tagline">
+        Every morning in Tamil Nadu, women draw a kolam on the doorstep with
+        rice flour: a grid of dots, then a line that loops around them. In the
+        <em>sikku</em> kolam the line never ends: one unbroken loop goes
+        around every dot and comes back to where it began. Pick a grid, and
+        the page finds such a line for you. Then watch it being drawn.
+      </p>
+
+      <div class="layout">
+        <div class="stage">
+          <div id="kolam" class="canvas-box" aria-label="Kolam"></div>
+          <p class="note" id="line-note" aria-live="polite"></p>
+          <div class="panel under">
+            <div class="btns">
+              <button type="button" id="new">New kolam</button>
+              <button type="button" id="draw" class="ghost">Draw it</button>
+              <button type="button" id="join" class="ghost" hidden>
+                Make it one line
+              </button>
+              <button type="button" id="clear" class="ghost">
+                Only crossings
+              </button>
+            </div>
+            <div class="ctl" style="margin: 14px 0 0">
+              <label for="speed">Drawing pace</label
+              ><span class="val" id="speed-val"></span>
+              <input type="range" id="speed" min="1" max="10" step="1" />
+            </div>
+          </div>
+          <div class="panel under">
+            <h3>Save</h3>
+            <div class="btns">
+              <button type="button" id="export-png">Download PNG</button>
+              <button type="button" id="export-svg" class="ghost">
+                Download SVG
+              </button>
+            </div>
+            <p class="note" style="margin: 10px 0 0">
+              The address of the page keeps this kolam, to share it.
+            </p>
+          </div>
+        </div>
+
+        <div class="side">
+          <div class="panel">
+            <h3>Dots</h3>
+            <div
+              class="chips"
+              id="shape-chips"
+              role="group"
+              aria-label="Shape of the grid"
+            ></div>
+            <div class="ctl">
+              <label for="size" id="size-label">Dots per side</label
+              ><span class="val" id="size-val"></span>
+              <input type="range" id="size" min="2" max="13" step="1" />
+            </div>
+            <div class="ctl" id="rows-ctl" hidden>
+              <label for="rows">Rows</label
+              ><span class="val" id="rows-val"></span>
+              <input type="range" id="rows" min="2" max="11" step="1" />
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Line</h3>
+            <div class="ctl">
+              <label for="turns">Turns (more turns, smaller loops)</label
+              ><span class="val" id="turns-val"></span>
+              <input type="range" id="turns" min="0" max="100" step="5" />
+            </div>
+            <div
+              class="chips"
+              id="sym-chips"
+              role="group"
+              aria-label="Symmetry"
+            ></div>
+            <label class="opt"
+              ><input type="checkbox" id="sym-edit" checked /> Keep the symmetry
+              when I click</label
+            >
+          </div>
+
+          <div class="panel">
+            <h3>Look</h3>
+            <div
+              class="chips"
+              id="look-chips"
+              role="group"
+              aria-label="Colors"
+            ></div>
+            <div class="ctl">
+              <label for="width">Line width</label
+              ><span class="val" id="width-val"></span>
+              <input type="range" id="width" min="3" max="30" step="1" />
+            </div>
+            <div class="ctl">
+              <label for="round">Roundness</label
+              ><span class="val" id="round-val"></span>
+              <input type="range" id="round" min="0" max="100" step="5" />
+            </div>
+            <label class="opt"
+              ><input type="checkbox" id="o-dots" /> Dots</label
+            >
+            <label class="opt"
+              ><input type="checkbox" id="o-texture" /> Powder texture</label
+            >
+          </div>
+
+        </div>
+      </div>
+
+      <div class="stats" id="stats"></div>
+
+      <div class="layout info">
+        <div class="side wide">
+          <div class="panel">
+            <h3>How the line is made</h3>
+            <p class="note">
+              Halfway between two neighboring dots, the line either crosses
+              itself or turns back, as if it bounced off a little mirror. On
+              the border it always turns back. Follow it from anywhere and it
+              loops around dot after dot until it comes home. Mathematicians
+              call these <em>mirror curves</em>; Paulus Gerdes found the same
+              drawings in the <em>sona</em> sand drawings of Angola.
+            </p>
+          </div>
+        </div>
+        <div class="side wide">
+          <div class="panel">
+            <h3>Finding a single line</h3>
+            <p class="note">
+              With no mirrors, a square of 7 by 7 dots holds 7 separate
+              lines. A mirror where two different lines cross joins them into
+              one. Where a line crosses itself, one mirror keeps it whole and
+              the other cuts it in two. So the page adds mirrors in random
+              order, keeps only those that never cut, and stops when one line
+              is left. Click any point between two dots to try it yourself.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>
+          The code of this page is
+          <a href="https://github.com/evoluteur/kolam-maker">Open source</a>
+          with MIT license.
+        </p>
+        <p>
+          Had fun browsing the app?
+          <a href="https://github.com/sponsors/evoluteur"
+            >Buy me a coffee by becoming a sponsor</a
+          >.
+        </p>
+        <p>
+          You may also like
+          <a href="https://evoluteur.github.io/celtic-knot-maker/"
+            >Celtic Knot Maker</a
+          >,
+          <a href="https://evoluteur.github.io/mandala-maker/">Mandala Maker</a
+          >,
+          <a href="https://evoluteur.github.io/sri-yantra/">Sri Yantra</a>,
+          and
+          <a href="https://evoluteur.github.io/labyrinth-maker/"
+            >Labyrinth Maker</a
+          >. See them all on
+          <a href="https://evoluteur.github.io/esoterica.html">Esoterica</a>.
+        </p>
+        <p class="copyright">
+          &#169; 2026
+          <a href="https://evoluteur.github.io/">Olivier Giulieri</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
